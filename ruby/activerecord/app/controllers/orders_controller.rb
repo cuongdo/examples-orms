@@ -8,6 +8,14 @@ class OrdersController < ApplicationController
   end
 
   def create
+    puts Order.attribute_names
+    puts params.inspect
+    ##### XXX ####
+    # I want wrap_parameters to have put the customer: {id: x} thing inside of
+    # order:{} hash along with the other stuff
+    #X### XXX ####
+    puts order_params.inspect
+
     redirect_to Order.create(order_params)
   end
 
@@ -22,6 +30,6 @@ class OrdersController < ApplicationController
 
   private
     def order_params
-      params.require(:order).permit(:name, :price)
+      params.require(:order).permit(:subtotal, customer: [:id])
     end
 end
